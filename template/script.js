@@ -1,10 +1,10 @@
 $(document).ready(function(){
 	$(".file_add_button").click(function(event){
-		
-		var deleteButton = "<span class=\"badge\"><span class=\"glyphicon glyphicon-remove\"></span></span>";
-		var editButton = "<span class=\"badge\"><span class=\"glyphicon glyphicon-pencil\"></span></span>";
-		var twoButtons = deleteButton + editButton;
 		var template=$("#add_templatebox").val();
+		var deleteButton = "<span class=\"badge\" role=\"button\" id=\""+template+"-"+"delBtn\"><span class=\"glyphicon glyphicon-remove\"></span></span>";
+		var editButton = "<span class=\"badge\" role=\"button\" id=\""+template+"-"+"editBtn\"><span class=\"glyphicon glyphicon-pencil\"></span></span>";
+		var twoButtons = deleteButton + editButton;
+		
 		var existsName=new Array();
 
 		 $(".list-group-item").each(function(){
@@ -16,11 +16,17 @@ $(document).ready(function(){
 		}
 		else{
 			if(template!="" && $.trim(template)!=""){
-			$("ul#listTemplate").append(" <li class=\"list-group-item\">" + twoButtons +  "<a href=\"#\" title=\"\">"+template+ "</a></li>");
+			$("ul#listTemplate").append(" <li class=\"list-group-item\">" + twoButtons +  '<a href="#" id="'+template+"\">"+template+ "</a></li>");
 			}
 		}
 		
 		$("#add_templatebox").val('');
+		var slect="li> "+template+"_editBtn";
+		$("#"+template+"-editBtn").click(function(){
+			$("#listTemplate").trigger("renameEvent",[template]);
+
+
+		});
 	});
 
 	$('ul.nav > li').click(function (e) {
@@ -49,7 +55,7 @@ $(document).ready(function(){
 			alert(newCatalogName+" is exist!");
 		}else{
 			if(newCatalogName!="" && $.trim(newCatalogName)!=""){
-				$(	"<li><a href=\""+"#"+">"+newCatalogName+"</a></li>"
+				$(	'<li><a href="#" id="'+newCatalogName+'">'+newCatalogName+'</a></li>'
 				).insertBefore('#editCatalog');
 			}
 		}
@@ -81,9 +87,35 @@ $(document).ready(function(){
 	});
 
 
+	$("#listTemplate").on("click","li > a",function(){
+		alert(event.target.id);
+
+	});	
 
 
-});
+	// })
+	$("#listTemplate").on("renameEvent",function(e,template){
+		alert(template);
+		
+		var editWindow='<div class="input-group"><input type="text" class ="form-control" id="add_templatebox" name="Item" value='+template+'><span class="input-group-addon">.vm</span><div class="input-group-btn"><button  type="submit" class="btn btn-primary file_add_button">OK</button></div>';
+		
+			$($("#listTemplate").children('li')).each(function(){
+				if($.trim($(this).text())==template){
+					$(this).empty();
+					$(this).replaceWith(editWindow);
+				}
+
+			})
+		
+		
+        //$('li>[id|="'+template+'"]').replace(editWindow);
+
+        // $(editWindow).replaceAll('li>[id|="'+template+'"]');
+
+	});	
+
+
+})
 
 
 
