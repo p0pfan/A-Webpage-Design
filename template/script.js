@@ -21,12 +21,10 @@ $(document).ready(function(){
 		}
 		
 		$("#add_templatebox").val('');
-		var slect="li> "+template+"_editBtn";
-		$("#"+template+"-editBtn").click(function(){
-			$("#listTemplate").trigger("renameEvent",[template]);
-
-
-		});
+		
+		// $("#"+template+"-editBtn").click(function(){
+		// 	$("#listTemplate").trigger("renameEvent",[template]);
+		// });
 	});
 
 	$('ul.nav > li').click(function (e) {
@@ -114,8 +112,38 @@ $(document).ready(function(){
 
 	});	
 
+	$('#listTemplate').on("click",'li > span[id$="delBtn"]',function(){
+		var text = "delete is not surpported!";
+		var type = "error";
+		delayToasts(type,text);
+
+
+	});
+
+	$('#listTemplate').on("click",'li > span[id$="editBtn"]',function(){
+		var text = "Do you want to rename?";
+		var button ='<br /><br /><button type="button" class="btn btn-warning clear">Yes</button>'
+		toastr.options.timeOut = 0;
+		// it should add a if to check;
+		toastr.options.preventDuplicates = true;
+		delayToasts("warning",text+button);
+
+	});
+
+
+	toastr.options.positionClass = 'toast-top-center';
+    toastr.options.extendedTimeOut = 0; //1000;
+    toastr.options.preventDuplicates= false;
+    toastr.options.fadeOut = 250;
+    toastr.options.showEasing = "swing";
+   
+
+ 
 
 })
+function delayToasts(type,msg) {
+         toastr[type](msg);
+}
 
 
 
