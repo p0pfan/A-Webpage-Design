@@ -9,6 +9,6 @@
 2. 添加category
 3. 可以添加template
 4. 重命名template名字
-5. 编辑模板
+5. 编辑模板  
 ![Capture.PNG](https://ooo.0o0.ooo/2016/08/25/57bedf17ba8b0.png)
 
