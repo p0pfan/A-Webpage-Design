@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<link rel = "stylesheet" type = "text/css" href = "resources/css/bootstrap.min.css">
+
+    <link rel = "stylesheet" type = "text/css" href = "resources/css/bootstrap-theme.min.css">
+	<link rel = "stylesheet" type = "text/css" href = "resources/css/toastr.min.css">
+    <script src = "resources/js/jquery-3.0.0.min.js"></script>
+
+    <script src="resources/js/bootstrap.min.js"></script>
+    <!-- <script src="addCatalog.js"></script> -->
+    <script src="resources/js/toastr.min.js"></script>
+    <script src="resources/ckeditor/ckeditor.js"></script>
+    <script src="resources/js/script.js"></script>
+    <script src="resources/js/getTemplateList.js"></script>
+    <script src="resources/js/basic.js"></script>
+    <script src="resources/js/getContent.js"></script>
+    <script src="resources/js/saveTemplate.js"></script>
+    <script src="resources/js/newTemplate.js"></script>
+    <script src="resources/js/addCategory.js"></script>
+    <script src="resources/js/renamebox.js"></script>
+    <script src="resources/js/alert.js"></script>
+    
+</head>
+<body>
+    <nav class="navbar " role="navigation">
+        <div class="container-fluid">
+
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Email Template</a>
+            </div>
+            <ul class="nav nav-pills" id="category">
+                <li >
+                    <a href="#">Catalog1</a>
+                </li>
+                <li>
+                    <a href="#">Catalog2</a>
+                </li>
+                
+                <li class="dropdown" id="editCatalog">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Edit <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a  data-toggle="modal" href="#addCatalog" class="btn">Add Catalog</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a data-toggle="modal" href="#deleteCatalog" class="btn">Detele Catalog</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container-fluid">
+		
+        <div class="row">
+            <div class="col-md-2">
+
+                <div id="mainlist">
+                    <div class="input-group">
+                        <input type="text" class ="form-control" id="add_templatebox" name="Item" placeholder="please choose a category", disabled>
+                        <span class="input-group-addon">.vm</span>
+                        <div class="input-group-btn">
+                            <button  type="submit" class="btn btn-primary file_add_button" disabled>ADD</button>
+                        </div>
+                    </div>
+
+                    <!-- <form>
+                    <ol class="list-group list_of_items"></ol>
+
+                </form>
+                -->
+            </div>
+
+            <div class="module">
+                <ul class="list-group " id="listTemplate">
+
+                    <li class="list-group-item ">
+                             
+                   </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+        <div class="col-md-10">
+            <div class="nav navbar breadcrumb" id="templatefileNav">
+                <li class="active navbar-text"><strong>...</strong></li>
+                <li class="active navbar-text">...</li>
+                <button type="button" class="btn btn-primary  pull-right navbar-btn" id="saveBtn" disabled="disabled">Save</button>
+            </div>
+             <ul class="list-unstyled posts">
+                <textarea id="content" name="content" class="ckeditor"></textarea> 
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="modal fade bs-example-modal-sm" id="addCatalog" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" 
+               data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Add a Catalog</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="catalog-name"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" 
+               data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="addCatalogBtn" data-dismiss="modal">Add</button>
+            </div>
+        </div>
+        <!-- /.modal-content --> </div>
+    <!-- /.modal -->
+</div>
+
+<div class="modal fade bs-example-modal-sm" id="deleteCatalog" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" 
+               data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">choose to delete</h4>
+            </div>
+            <div class="modal-body" id="existsCatalog">
+                Sorry! Delete is not allowed! You can contact admin for further help!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" 
+               data-dismiss="modal">Cancel</button>
+                <button type="button " class="btn btn-danger ">Delete</button>
+            </div>
+        </div>
+        <!-- /.modal-content --> </div>
+    <!-- /.modal -->
+</div>
+
+
+<script type="text/javascript">
+    $('.menu .item').tab();
+	 
+    var status = '${categoryResponse.getStatus()}';
+    var message = '${categoryResponse.getMessage()}';
+	if(status == "failed") {
+		var text = message;
+		var type = "error";
+		delayToasts(type,text);
+	}
+	
+
+</script>
+</body>
+</html>
